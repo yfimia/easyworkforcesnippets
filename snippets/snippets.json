@@ -1,6 +1,6 @@
 {
     "Browser CRUD Scene": {
-        "prefix": "bCRUDScene",
+        "prefix": "browserCRUDScene",
         "body": [
             "import { CRUDScene, CRUDSceneState, FlowStep, LandingSectionProps } from '../../../../Infrastructure/Frontend/commons/BrowserComponents';",
             "import { inject } from '../../../../Infrastructure/Frontend/commons/Core';",
@@ -12,7 +12,7 @@
             "",
             "export default class NAMEScene extends CRUDScene<NAMEModel, NAMEFilter, number, NameStoreParams, NAMESceneParams>",
             "{",
-            "\t",
+            "",
             "\t@inject",
             "\tcreateStateFromStores(store: NAMEStore): CRUDSceneState<NAMEModel, NAMEFilter, number, NameStoreParams, NAMESceneParams> {",
             "\t",
@@ -24,7 +24,7 @@
             "\t}",
             "",
             "\tgetTitle(): string {",
-            "\t\treturn \"Set your title here\", ",
+            "\t\treturn \"Set your title here\";",
             "\t}",
             "",
             "\tgetTitleIcon(): string {",
@@ -32,32 +32,68 @@
             "\t}",
             "",
             "\tlistComponentType() { ",
-            "\t\treturn NAMEList",
+            "\t\treturn NAMEList;",
             "\t}",
             "",
             "\tformComponentType(){ ",
-            "\t\treturn NAMEForm",
+            "\t\treturn NAMEForm;",
             "\t}",
             "",
             "\tdetailsComponentType(){",
-            "\t\treturn NAMEDetails",
+            "\t\treturn NAMEDetails;",
             "\t}",
             "",
             "\tgetBreadcrumms() { ",
-            "\t\treturn null; ",
+            "\t\treturn null;",
             "\t}",
             "",
-            "\trenderStep(step: FlowStep): JSX.Element {",
-            "\t\treturn super.renderStep(step)",
+            "\trenderStep(step: FlowStep) {",
+            "\t\treturn super.renderStep(step);",
             "\t}",
             "",
-            "\tprotected getLandingSection(): LandingSectionProps {",
-            "\t\treturn null",
+            "\tprotected getLandingSection(){",
+            "\t\treturn null;",
             "\t}",
             "",
             "}"
         ],
-        "description": "Creates a CRUD Scene boilerplate for the feature in the browser"
+        "description": "Creates a CRUD Scene boilerplate for a browser feature"
+    },
 
+    "Browser CRUD List": {
+        "prefix": "browserCRUDList",
+        "body": [
+            "export default class NAMEList extends CRUDList<NAMEModel, NAMEFilter, number, NameStoreParams, NAMESceneParams> {",
+            "{",
+            "",
+            "}"
+        ],
+        "description": "Creates a CRUD List boilerplate for a browser feature"
+    },
+
+    "Browser Transaction Form": {
+        "prefix": "browserTransactionForm",
+        "body": [
+            "export default class NAMEForm extends TransactionForm<NAMEModel, NAMEFilter, number, NameStoreParams, NAMESceneParams> {",
+            "{",
+            "",
+            "}"
+        ],
+        "description": "Creates a CRUD Form boilerplate for a browser feature"
+    },
+
+    "Browser Filter Form": {
+        "prefix": "browserFilterForm",
+        "body": [
+            "export default class NAMEForm extends FilterForm<NAMEModel, NAMEFilter, number, NameStoreParams, NAMESceneParams> {",
+            "{",
+            "",
+            "}"
+        ],
+        "description": "Creates a FilterForm boilerplate for a browser feature"
     }
+
+    
+    
+
 }
