@@ -54,7 +54,6 @@
         ],
         "description": "Creates a CRUD Scene boilerplate for a browser feature"
     },
-
     "Browser CRUD List": {
         "prefix": "ewfBrowserCRUDList",
         "body": [
@@ -103,7 +102,6 @@
         ],
         "description": "Creates a CRUD List boilerplate for a browser feature"
     },
-
     "Browser Transaction Form": {
         "prefix": "ewfBrowserTransactionForm",
         "body": [
@@ -149,7 +147,6 @@
         ],
         "description": "Creates a CRUD Form boilerplate for a browser feature"
     },
-
     "Browser Filter Form": {
         "prefix": "ewfBrowserFilterForm",
         "body": [
@@ -179,7 +176,6 @@
         ],
         "description": "Creates a FilterForm boilerplate for a browser feature"
     },
-
     "Browser Standard Landing Section Method": {
         "prefix": "ewfBrowserLandingSectionMethod",
         "body": [
@@ -197,7 +193,6 @@
         ],
         "description": "Adds the Standard Landing Section Method for a browser feature. It should be used in the feature Scene"
     },
-    
     "Mobile CRUD List": {
         "prefix": "ewfMobileCRUDList",
         "body": [
@@ -207,7 +202,7 @@
             "export default class ${TM_FILENAME_BASE} extends CRUDList<${1:Model}, ${2:Filter}, number>",
             "{",
             "\t@inject",
-            "\tcreateStateFromStores(store : ${3:Store}): CRUDListState<${1:Model}, ${2:Filter}, number> {",
+            "\tcreateStateFromStores(store : ${1:Model}Store}): CRUDListState<${1:Model}, ${2:Filter}, number> {",
             "\t\treturn {",
             "\t\t\tlist: store.getState().list,",
             "\t\t\tdetails: store.getState().details,",
@@ -240,11 +235,10 @@
             "\t\treturn '${8:-form}';",
             "\t} ",
             "",
-            "}"   
+            "}"
         ],
         "description": "Creates a CRUD List boilerplate for a mobile feature. It works as the feature entrypoint scene"
     },
-
     "Mobile CRUD Details": {
         "prefix": "ewfMobileCRUDDetails",
         "body": [
@@ -255,7 +249,7 @@
             "export default class ${TM_FILENAME_BASE} extends CRUDDetails<${1:Model}, any>",
             "{",
             "\t@inject",
-            "\tcreateStateFromStores(store : ${2:Store} ) : CRUDDetailsState<${1:Model}, any> {",
+            "\tcreateStateFromStores(store : ${1:Model}Store ) : CRUDDetailsState<${1:Model}, any> {",
             "\t\treturn {",
             "\t\t\tmodel : store.getState().details,",
             "\t\t\tparams : {}",
@@ -263,16 +257,13 @@
             "\t}",
             "",
             "\trenderDetails(){",
-            "\t\treturn [",
-            "\t\t\tthis.renderString('$0Label here', x => x.Name),",
-            "\t\t]",
+            "\t\treturn (<React.Fragment>{this.renderString('$0Label here', x => x.Name)}</React.Fragment>)",
             "\t}",
             "",
             "}"
         ],
         "description": "Creates a CRUD Form boilerplate for a mobile feature. It includes an scene that loads the form"
-    },    
-
+    },
     "Mobile CRUD Form": {
         "prefix": "ewfMobileCRUDForm",
         "body": [
@@ -280,7 +271,6 @@
             "import * as React from 'react';",
             "import { inject } from '../../../../Infrastructure/Frontend/commons/Core';",
             "import { TransactionForm, TransactionFormProps, CRUDForm, CRUDFormState } from '../../../../Infrastructure/Frontend/commons/MobileComponents';",
-            "import messages from '../../i18n/Messages';",
             "$0",
             "export interface ${TM_FILENAME_BASE}Params {",
             "}",
@@ -297,16 +287,16 @@
             "\t}",
             "",
             "\tprotected createModelValidator() {",
-            "\t\treturn new ${TM_FILENAME_BASE}Validator()",
+            "\t\treturn new ${1:Model}Validator()",
+            "\t}",
+            "",
+            "\tprotected getPropsServiceValidator(): string[] {",
+            "\t\treturn [this.getPropName(x => x.Code)];",
             "\t}",
             "",
             "\trenderFormBody() {",
             "\t\treturn (",
-            "\t\t\t<Row>",
-            "\t\t\t\t<Col>",
-            "\t\t\t\t\t{this.renderStringInput('Label name here', x => x.Name)}",
-            "\t\t\t\t</Col>",
-            "\t\t\t</Row>",
+            "\t\t\t<React.Fragment>{this.renderStringInput('Label name here', x => x.Name)}</React.Fragment>",
             "\t\t)",
             "\t}",
             "",
@@ -316,10 +306,11 @@
             "{",
             "",
             "\t@inject",
-            "\tcreateStateFromStores(store: ${2:Store}): CRUDFormState<${1:Model}, ${TM_FILENAME_BASE}Params> {",
+            "\tcreateStateFromStores(store: ${1:Model}Store): CRUDFormState<${1:Model}, ${TM_FILENAME_BASE}Params> {",
             "\t\treturn {",
             "\t\t\tmodel: store.getState().details,",
             "\t\t\ttransaction: store.getState().transaction,",
+            "\t\t\tvalidationResult : store.getState().validationResult,",
             "\t\t\tparams: { }",
             "\t\t}",
             "\t}",
@@ -333,11 +324,9 @@
             "\t}",
             "",
             "}"
-
         ],
         "description": "Creates a CRUD Form boilerplate for a mobile feature. It includes an scene that loads the form"
-    },    
-
+    },
     "Mobile CRUD Filter Form": {
         "prefix": "ewfMobileCRUDFilterForm",
         "body": [
@@ -360,12 +349,12 @@
             "",
             "\trenderFormBody() {",
             "\t\treturn (",
-            "\t\t\t<View style={{ flex: 1 }}>",
+            "\t\t\t<React.Fragment>",
             "\t\t\t\t{",
             "\t\t\t\t\tthis.renderObjectSelect(__translate(commonMessages.cm.archivingStatus), model => model.Archived, [false, true], x => `${x}`,",
             "\t\t\t\t\t\tx => x ? __translate(commonMessages.cm.archived) : __translate(commonMessages.cm.notArchived), true)",
             "\t\t\t\t}",
-            "\t\t\t</View>",
+            "\t\t\t</React.Fragment>",
             "\t\t)",
             "\t}",
             "",
@@ -374,7 +363,7 @@
             "export default class ${TM_FILENAME_BASE}Scene extends CRUDFilter<${1:Filter}, ${TM_FILENAME_BASE}Params>",
             "{",
             "\t@inject",
-            "\tcreateStateFromStores(store: ${2:Store}): CRUDFilterState<${1:Filter}, ${TM_FILENAME_BASE}Params> {",
+            "\tcreateStateFromStores(store: ${1:Model}Store): CRUDFilterState<${1:Filter}, ${TM_FILENAME_BASE}Params> {",
             "\t\treturn { filter: store.getState().list.filter };",
             "\t}",
             "",
@@ -385,11 +374,10 @@
             "\tfilterFormComponent() {",
             "\t\treturn ${TM_FILENAME_BASE};",
             "\t}",
-            "}"  
+            "}"
         ],
         "description": "Creates a Filter Form boilerplate for a mobile feature. It includes an scene that loads the filter form"
     },
-
     "CRUD Store": {
         "prefix": "ewfCRUDStore",
         "body": [
@@ -436,7 +424,6 @@
         ],
         "description": "Creates a CRUD Store given the model and the filter. It also links the default actions and creates the default filter object"
     },
-
     "CRUD Actions": {
         "prefix": "ewfCRUDActions",
         "body": [
@@ -506,7 +493,6 @@
         ],
         "description": "Creates all CRUD actions"
     },
-    
     "CRUD Service": {
         "prefix": "ewfBasicCRUDService",
         "body": [
@@ -519,13 +505,13 @@
             "{",
             "\tconstructor()",
             "\t{",
-            "\t\tsuper('/${3:end-point}');",    
+            "\t\tsuper('/${3:end-point}');",
             "\t}",
             "",
             "\t_filter(filter: Queryable<${2:Filter}>)",
             "\t{",
             "\t\treturn this.createFilter(filter);",
-            "\t}  ",      
+            "\t}  ",
             "",
             "\trecover(id: number)",
             "\t{",
@@ -535,8 +521,27 @@
             "}"
         ],
         "description": "Creates a basic service to handle the CRUD actions"
-    }      
-    
+    },
 
-
+    "import Messages": {
+        "prefix": "ewfMessages",
+        "body": [
+            "import messages from '../../i18n/Messages';",
+            ""
+        ]
+    },
+    "import Common Messages": {
+        "prefix": "ewfCommonMessages",
+        "body": [
+            "import cmMessages from '../../../../Infrastructure/Frontend/commons/i18n/Messages';",
+            ""
+        ]
+    },
+    "import Config Messages": {
+        "prefix": "ewfConfigMessages",
+        "body": [
+            "import cfgMessages from '../../../../Config/Frontend/commons/i18n/Messages';",
+            ""
+        ]
+    }  
 }
